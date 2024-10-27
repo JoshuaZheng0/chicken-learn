@@ -179,7 +179,7 @@
             <div class="background-layer"><h1>LEARN NEW WORDS</h1></div>
             <Home {setPage} />
             <div class="spline-foreground">
-                <SplineViewer url="https://prod.spline.design/vGQPzGETFlPq3jEC/scene.splinecode" />
+                <SplineViewer url="https://prod.spline.design/vGQPzGETFlPq3jEC/scene.splinecode" audioUrl="audio/chicken.mp3" />
             </div>
         {:else if currentPage === 'learning'}
             <Learning />
@@ -189,7 +189,7 @@
 					<SlidingPuzzleMain />
 				</div>
 				<div class="spline-foreground">
-					<SplineViewer url="https://prod.spline.design/AF8qvqIeLt1SgaTG/scene.splinecode" />
+					<SplineViewer url="https://prod.spline.design/AF8qvqIeLt1SgaTG/scene.splinecode" audioUrl="audio/cat.mp3"/>
 				</div>
             </div>
 			<div class="background-layer" style="margin-left: 20%;">

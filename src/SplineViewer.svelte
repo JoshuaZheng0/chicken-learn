@@ -1,30 +1,41 @@
 <script>
-    // Import the onMount lifecycle function from the Svelte library
     import { onMount } from 'svelte';
 
-    // Declare a prop for the URL
     export let url;
+    export let audioUrl;
 
-    // Use the onMount function to run code when the component is mounted
+    let audio;
+
     onMount(() => {
-        // Create a new script element to load the Spline Viewer library
         const script = document.createElement('script');
-
-        // Set the script type to 'module' to allow for ES module imports
         script.type = 'module';
-
-        // Specify the source URL of the Spline Viewer library
         script.src = 'https://unpkg.com/@splinetool/viewer@1.9.35/build/spline-viewer.js';
-
-        // Append the script element to the document head to load the library
         document.head.appendChild(script);
 
-        // Return a cleanup function that will run when the component is destroyed
+        // Initialize the audio object but don't play it yet
+        audio = new Audio(audioUrl);
+        // Remove the loop setting to play audio only once
+        // audio.loop = true; // Commented out to prevent looping
+
+        // Add a click event listener to the spline viewer
+        const splineViewer = document.querySelector('spline-viewer');
+        splineViewer.addEventListener('click', playAudio);
+
         return () => {
-            // Remove the script element from the document head
             document.head.removeChild(script);
+            audio.pause();
+            audio.src = '';
+            // Remove the event listener on cleanup
+            splineViewer.removeEventListener('click', playAudio);
         };
     });
+
+    // Function to play audio
+    function playAudio() {
+        audio.play().catch(err => {
+            console.error('Audio playback failed:', err);
+        });
+    }
 </script>
 
 <main>
