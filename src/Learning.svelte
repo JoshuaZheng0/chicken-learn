@@ -100,41 +100,49 @@
             transform: translateX(0); /* Start at original position */
         }
         100% {
-            transform: translateX(-150%); /* Move out of screen */
+            transform: translateX(-200%); /* Move out of screen */
         }
     }
     h1 { 
         font-family: 'Impact', sans-serif; /* Impact font */
-        font-size: 4vw; /* Adjusts from 2rem to 8rem based on screen width */
+        font-size: 4vw; /* Adjusted for responsive design */
         color: #fbbf54; /* Text color */
-        letter-spacing: 5px; /* Slightly reduced spacing for fit */
+        letter-spacing: 0.1em; /* Adjusted letter-spacing */
         word-break: break-word; /* Ensures text wraps if needed */
         overflow-wrap: break-word;
-     }
+    }
     .word-audio-container {
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 1em; /* Adjusted gap between items */
     }
-    .word { font-size: 2.5rem; color: #4A90E2; font-weight: bold; }
-    .definition, .pronunciation, .partsofspeech { margin-top: 10px; }
+    .word { 
+        font-size: 2.5em; /* Changed to em for better scaling */
+        color: #4A90E2; 
+        font-weight: bold; 
+    }
+    .definition, .pronunciation, .partsofspeech { 
+        margin-top: .5em; /* Changed to em for margin */
+    }
     .fetch-button {
         background-color: #4A90E2;
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 0.625em 1.25em; /* Changed to em for padding */
+        border-radius: 0.3125em; /* Changed to em for border-radius */
         cursor: pointer;
-        margin-top: 20px;
+        margin-top: 1.25em; /* Changed to em for margin */
     }
-    .fetch-button:hover { background-color: #357ABD; }
+    .fetch-button:hover { 
+        background-color: #357ABD; 
+    }
 
     /* Animation for the main sections */
     main {
-        margin: 2vw;
+        margin: 2vw; /* Using vw for responsive margin */
         position: absolute; /* Fixes it to the viewport */
         top: 0; /* Aligns it to the top */
-        width: 50vw;
+        width: 50vw; /* Adjusting width for responsive design */
         max-width: 50vw;
     }
     .slide-in {
@@ -142,8 +150,11 @@
     }
     .slide-out {
         animation: slideOutToLeft 1s forwards;
+    }@media (max-width: 600px) { 
+        .word-audio-container {
+            flex-direction: column;
+        }
     }
-
 </style>
 
 <main class:slide-in={!initialLoad && !showNewWord} class:slide-out={showNewWord}>

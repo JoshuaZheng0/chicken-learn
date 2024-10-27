@@ -135,6 +135,7 @@
 
 <div class="puzzle">
     {#each tiles as tile, index}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="tile {tile === null ? 'empty' : ''}" 
             on:click={() => moveTile(index)}

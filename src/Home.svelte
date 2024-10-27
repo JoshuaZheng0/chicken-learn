@@ -28,20 +28,21 @@
     }
 
     main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-color);
-    text-align: center;
-    background-size: cover;
-    animation: slideInFromBottom 2s ease forwards;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-color);
+        text-align: center;
+        background-size: cover;
+        animation: slideInFromBottom 2s ease forwards;
+        padding: 2em; /* Added padding for main content */
     }
 
     h2 {
-        font-size: 1.5rem;
-        margin-top: 10px;
+        font-size: 1.4em; /* Increased size for better visibility */
+        margin-top: .5em; /* Changed to em for margin */
         color: var(--text-color);
     }
 
@@ -49,13 +50,13 @@
         background-color: var(--button-yellow);
         color: var(--text-color);
         border: none;
-        padding: 15px 30px;
-        font-size: 2rem;
+        padding: .5em 1em; /* Changed to em for padding */
+        font-size: 2em; /* Increased font size */
         cursor: pointer;
-        border-radius: 25px; /* Rounded button */
-        margin-top: 20px;
+        border-radius: 1.5em; /* Changed to em for rounded button */
+        margin-top: .3em; /* Changed to em for margin */
         transition: background-color 0.3s;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 0.25em 0.5em rgba(0, 0, 0, 0.2); /* Adjusted shadow to em */
     }
 
     .start-button:hover {

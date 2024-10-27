@@ -1,4 +1,3 @@
-<!-- App.svelte -->
 <script>
     import { onMount } from 'svelte'; // Import onMount
     import SplineViewer from './SplineViewer.svelte';
@@ -53,15 +52,16 @@
     .container {
         display: flex;
         width: 100%;
-        height: 100vh;
+        height: 100vh; /* Full viewport height */
         overflow-x: hidden; /* Prevent horizontal scrolling */
-        overflow-y: hidden;
+        overflow-y: auto; /* Allow vertical scrolling */
         background-color: var(--background-white);
         font-family: 'Comic Sans MS', cursive, sans-serif;
         position: relative;
     }
 
-    .background-layer {
+
+    .background-layer, .background-layer2{
         position: absolute;
         top: -20%;
         left: 0;
@@ -74,14 +74,18 @@
         font-family: 'Impact', sans-serif; /* Impact font */
         animation: slideInFromLeft 3s ease forwards;
     }
+    .background-layer2 {
+        z-index: 0;
+        margin-left: 20%;
+    }
 
     /* Text Styling */
-    .background-layer h1 {
-        font-size: clamp(2rem, 10vw, 8rem); /* Adjusts from 2rem to 8rem based on screen width */
+    .background-layer h1,.background-layer2 h1 {
+        font-size: clamp(2em, 10vw, 8em); /* Adjusts from 2em to 8em based on screen width */
         color: #fbbf54; /* Text color */
         text-align: center; /* Center the text */
-        letter-spacing: 5px; /* Slightly reduced spacing for fit */
-        padding: 0 2vw; /* Horizontal padding for better spacing on smaller screens */
+        letter-spacing: 0.1em; /* Adjusted for better fit */
+        padding: 0 2%; /* Horizontal padding for better spacing on smaller screens */
         word-break: break-word; /* Ensures text wraps if needed */
         overflow-wrap: break-word;
     }
@@ -91,22 +95,22 @@
         display: flex;
         justify-content: left;
         background-color: var(--main-yellow);
-        padding: 0px;
+        padding: 0;
     }
 
     .logo {
-        margin: 2vw;
-        height: 50px; /* Adjust height as needed */
+        margin: 2%; /* Percentage margin */
+        height: 3em; /* Adjust height as needed */
     }
 
     nav button {
-        margin: 2vw; /* Adjusts margin */
+        margin: 2%; /* Adjusts margin */
         color: #66492c; /* Text color */
         background-color: transparent; /* Make background transparent */
         border: none; /* No border */
-        font-size: 1.2rem; /* Font size */
+        font-size: 1.2em; /* Font size */
         cursor: pointer; /* Pointer cursor on hover */
-        border-radius: 5px; /* Rounded corners */
+        border-radius: 0.3em; /* Rounded corners */
         transition: background-color 0.3s; /* Transition effect */
         font-weight: bold;
     }
@@ -139,29 +143,81 @@
     }
 
     /* New style for SlidingPuzzleMain alignment */
-	.sliding-puzzle-container {
-		margin: 4vw 4vw 0 4vw; /* Top, Right, Bottom, Left */
-		display: flex;
-		align-items: flex-start;
-		justify-content: flex-start;
-		width: 100%; 
-		height: 100%; 
-	}
-	.sliding-puzzle-wrapper {
-		animation: slideInFromRight 3s ease forwards;
-	}
+    .sliding-puzzle-container {
+        margin: 4% 4% 0 4%; /* Top, Right, Bottom, Left */
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%; 
+        height: 100%; 
+    }
+    .sliding-puzzle-wrapper {
+        animation: slideInFromRight 3s ease forwards;
+    }
     /* Media query for mobile */
-    @media (max-width: 768px) { /* Adjust the max-width as needed */
+    @media (max-width: 380px) { /* Adjust the max-width as needed */
         .container {
-        height: auto; /* Allow height to adjust based on content */
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            width: 100%;
+            min-height: 100vh; /* Minimum height to fill the viewport */
+            overflow-y: auto; /* Allow vertical scrolling */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            background-color: var(--background-white);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            position: relative;
+        }
+        main {
+            flex-direction: column; /* Ensure main content also stacks vertically */
+            height: auto; /* Allow height to adjust based on content */
+        }
+        .background-layer {
+        top: -10%;
+        }
+        .background-layer2 {
+        top: +10%;
+        margin-left: 0;
+        }
+        .sliding-puzzle-container{
+            flex-direction: column;
+        }
+        
     }
-    main {
-        flex-direction: column;; /* Ensure main content also stacks vertically */
-        height: auto; /* Allow height to adjust based on content */
+    @media (max-width: 600px) { /* Adjust the max-width as needed */
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-150%); /* Start off-screen to the left */
+                opacity: 0; /* Start transparent */
+            }
+            100% {
+                transform: translateX(0); /* Move to the original position */
+                opacity: 1; /* Fully opaque */
+            }
+        }
+        .container {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            width: 100%;
+            min-height: 100vh; /* Minimum height to fill the viewport */
+            overflow-y: auto; /* Allow vertical scrolling */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            background-color: var(--background-white);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            position: relative;
+        }
+        main {
+            flex-direction: column; /* Ensure main content also stacks vertically */
+            height: auto; /* Allow height to adjust based on content */
+        }
+        .background-layer2 {
+        top: 0%;
+        margin-left: 0;
+        }
+        .sliding-puzzle-container{
+            flex-direction: column;
+        }
+        
     }
-}
-
-
 </style>
 
 <nav>
@@ -185,16 +241,16 @@
             <Learning />
         {:else if currentPage === 'sliding'}
             <div class="sliding-puzzle-container">
-				<div class="sliding-puzzle-wrapper">
-					<SlidingPuzzleMain />
-				</div>
-				<div class="spline-foreground">
-					<SplineViewer url="https://prod.spline.design/AF8qvqIeLt1SgaTG/scene.splinecode" audioUrl="audio/cat.mp3"/>
-				</div>
+                <div class="sliding-puzzle-wrapper" style="position: relative; z-index: 2;">
+                    <SlidingPuzzleMain />
+                </div>
+                <div class="spline-foreground" style="z-index: 2;">
+                    <SplineViewer url="https://prod.spline.design/AF8qvqIeLt1SgaTG/scene.splinecode" audioUrl="audio/cat.mp3"/>
+                </div>
             </div>
-			<div class="background-layer" style="margin-left: 20%;">
-				<h1>MEOW MEOW!!</h1>
-			</div>
+            <div class="background-layer2">
+                <h1>MEOW MEOW!!</h1>
+            </div>
         {/if}
     </main>
 </div>
